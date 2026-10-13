@@ -1,542 +1,211 @@
 
-ROLE WISE QIESTIONS
-Role-wise Test Questions for Your AI Onboarding Assistant
-These questions are based on your four uploaded Markdown documents: onboarding_guide.md, support_escalation_guide.md, product_faq.md, and security_policy.md.
 
-Your application supports four roles: employee, manager, it_admin, and hr. The questions below are organized by the role selected in Streamlit.
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/6702847c-ace9-4cb6-a383-dea67e80009d" />
+# AI Onboarding Assistant
 
-1. Employee (employee)
-Based on laptop setup, account activation, VPN access, support escalation and security policies. 
-onboarding_guide.md
- 
-support_escalation_guide.md
+A Retrieval-Augmented Generation (RAG) onboarding assistant built with **Python, LangGraph, LangChain, Groq, FAISS, Hugging Face Embeddings, and Streamlit**. It retrieves relevant information from approved onboarding documents and routes each request through a LangGraph workflow.
 
-No.
+<!-- Replace the placeholder below with your deployed Streamlit app URL. -->
 
-Test question
+## Project Workflow
 
-Expected category
+The application validates the user's question and role, retrieves relevant document chunks, and classifies the request using Groq:
 
-1
+- **Information:** check the retrieved context, generate a context-grounded response, and include source filenames when available.
+- **Account access:** check approval status. If approved, run the project's mock VPN access tool; otherwise return without running the tool.
+- **Unsupported:** return the configured fallback message.
 
-What steps should I complete on my first day?
+Each path ends at the final response node.
 
-information
+## Key Features
 
-2
+- LangGraph workflow with conditional routing.
+- RAG over approved Markdown files in `data/`.
+- FAISS similarity search over embedded text chunks.
+- Groq-powered request classification and response generation.
+- Request categories: `information`, `account_access`, and `unsupported`.
+- Input validation for the question and supported role.
+- Source filenames included with information responses when available.
+- Approval gate before the mock account-access action.
+- Streamlit interface and command-line entry point.
 
-How do I set up my company laptop?
+## Tech Stack
 
-information
+| Component | Purpose |
+|---|---|
+| Python | Application logic |
+| LangGraph | Workflow graph and conditional routing |
+| LangChain | Document loading and LLM integration |
+| Groq | Request classification and answer generation |
+| Hugging Face Embeddings | Text embeddings using `sentence-transformers/all-MiniLM-L6-v2` |
+| FAISS | Vector similarity search |
+| Streamlit | Web interface |
 
-3
+## Repository Structure
 
-What should I do after signing in with temporary credentials?
-
-information
-
-4
-
-Who should I contact if my account activation fails?
-
-information
-
-5
-
-What information should I include in a support request?
-
-information
-
-6
-
-Should I share my password with IT support?
-
-information
-
-7
-
-I need VPN access.
-
-account_access
-
-8
-
-Give me access to a protected company resource.
-
-account_access
-
-9
-
-What is today's stock price?
-
-unsupported
-
-2. HR (hr)
-Based on the onboarding guidance, approved resources and support procedures. The documents do not define separate HR permissions or HR-only procedures. 
-product_faq.md
- 
-onboarding_guide.md
-
-No.
-
-Test question
-
-Expected category
-
-1
-
-What resources can employees find in the onboarding portal?
-
-information
-
-2
-
-What steps should a new employee complete on the first day?
-
-information
-
-3
-
-Who can help employees with account activation problems?
-
-information
-
-4
-
-What information should be included when reporting an onboarding problem?
-
-information
-
-5
-
-How should suspected credential exposure be handled?
-
-information
-
-6
-
-Create an account for a new employee.
-
-account_access
-
-7
-
-I need access to a protected employee system.
-
-account_access
-
-8
-
-Tell me an employee's private payroll information.
-
-unsupported
-
-9
-
-Give me personal financial advice.
-
-unsupported
-
-3. Manager (manager)
-Based on the documented access-request process, security requirements and support escalation guidance. 
-security_policy.md
- 
-support_escalation_guide.md
-
-No.
-
-Test question
-
-Expected category
-
-1
-
-What details should a VPN access request include?
-
-information
-
-2
-
-What is the principle of least privilege?
-
-information
-
-3
-
-What should happen if first-level support cannot resolve an issue?
-
-information
-
-4
-
-What details should be included in an IT escalation?
-
-information
-
-5
-
-What should employees do when they suspect unauthorized access?
-
-information
-
-6
-
-Request access to a protected company resource.
-
-account_access
-
-7
-
-Grant me VPN access.
-
-account_access
-
-8
-
-Bypass approval and enable my account.
-
-account_access
-
-9
-
-Give me the latest external news.
-
-unsupported
-
-4. IT Administrator (it_admin)
-Based on the support escalation guide and security policy. The knowledge base does not specify separate IT administrator permissions. 
-support_escalation_guide.md
- 
-security_policy.md
-
-No.
-
-Test question
-
-Expected category
-
-1
-
-What details should an escalated IT support request contain?
-
-information
-
-2
-
-When should a security incident be escalated immediately?
-
-information
-
-3
-
-What should an employee do after losing an authentication token?
-
-information
-
-4
-
-How should an immediate security risk be handled?
-
-information
-
-5
-
-What secrets must never be included in source code or support tickets?
-
-information
-
-6
-
-I need VPN access.
-
-account_access
-
-7
-
-Create an account in the internal system.
-
-account_access
-
-8
-
-Enable access to a protected resource without approval.
-
-account_access
-
-9
-
-What is the weather today?
-
-unsupported
-
-5. How to test these in Streamlit
-For each role, select it in the sidebar and submit the corresponding questions.
-
-Scenario
-
-Expected behavior
-
-information
-
-Retrieves document context and attempts to generate a grounded answer
-
-account_access
-
-Displays the approval prompt; tool runs only after approval
-
-unsupported
-
-Displays the onboarding-scope fallback message
-
-Access approved
-
-Mock access tool executes
-
-Access rejected
-
-No tool execution
-
-Important limitation: your current classifier uses the question text, not the selected role, to determine the category. The role is validated and included in the mock tool result, but role-specific permissions are not implemented. Therefore, the same question will generally have the same expected category across all four roles. Actual information answers also depend on whether the relevant content is retrieved from your Markdown files.
-
-
-Convert to PDF
-I WANT A README FILE FRO THIS PRIOJECT WHICH INCLUDES THE FLOWCHART OF PROJECT
-
-
-User attachment
-HERE YOU CAN SEE MY FOLDER STRUCTURE
-
-Worked for 53s
-
-YOU ARE TAKING TOO ,MUCH TIME
-
-HEY
-WHAT ARE YOU DOING
-HI
-DO IT FAST
-Created the README file with your folder structure, project architecture flowchart, RAG pipeline, setup instructions, run commands, and test questions.
-
-Download README_AI_Onboarding_Assistant_Final.md
-
-Place this file in your project root, replacing your existing README.md. The flowcharts use Mermaid syntax and should render on GitHub.
-
-
-README_AI_Onboarding_Assistant_Final.md
-Document
-
-Convert to PDF
-User asks a question
-Question + role + initial state
-Validate
-Retrieve documents using RAG
-Classify request using Groq
-Information
-Grounding
-Generate
-Account access
-Approval
-Tool if approved
-Unsupported
-Fallback answer
-Final response → END
-Answer, sources where applicable, and tool result
-I NEDD THIS TYPE OF IMAGE TO ADD AND ALSO I WILL ADD LIVE WORKING LINK
-…
-
-I’ll create a README-ready flowchart image and add an obvious placeholder for your live demo URL in the README.
-
-
-
-
-AI Onboarding Assistant
-A RAG-based employee onboarding assistant built with Python, LangGraph, LangChain, Groq, FAISS, Hugging Face embeddings, and Streamlit. It answers onboarding questions from approved Markdown documents and routes account-access requests through an approval check.
-
-Prototype limitation: The VPN tool is a mock action. It does not grant real VPN access or modify an external system.
-
-Project Structure
+```text
 AI_Onboarding_Assistant/
 ├── app/
-│   ├── __pycache__/
 │   ├── __init__.py
-│   ├── graph.py
-│   ├── main.py
-│   ├── nodes.py
-│   ├── rag.py
-│   ├── state.py
-│   └── Streamlit_app.py
+│   ├── graph.py              # LangGraph workflow and routing
+│   ├── main.py               # CLI entry point
+│   ├── nodes.py              # Workflow node implementations
+│   ├── rag.py                # Loading, chunking, embeddings and FAISS retrieval
+│   ├── state.py              # Shared LangGraph state
+│   └── Streamlit_app.py      # Streamlit UI
 ├── data/
 │   ├── onboarding_guide.md
 │   ├── product_faq.md
 │   ├── security_policy.md
 │   └── support_escalation_guide.md
-├── tests/
-├── .env
+├── tests/                    # Test folder
+├── .env                      # Local secrets; do not commit
+├── project-flowchart.png     # README workflow diagram
 └── README.md
-__pycache__/ is generated by Python. The screenshot shows a tests/ folder, but its contents are not listed here.
+```
 
-Features
-Validates question and selected role.
-Retrieves relevant chunks from approved Markdown files using FAISS.
-Uses sentence-transformers/all-MiniLM-L6-v2 for embeddings.
-Uses Groq for request classification and answer generation.
-Classifies requests as information, account_access, or unsupported.
-Checks whether retrieval returned context before generating an information answer.
-Adds source filenames to information answers when available.
-Requires approval before running the mock VPN access tool.
-Provides a Streamlit interface and a CLI entry point.
-Main Workflow Flowchart
-The flow below follows the nodes and routes implemented in app/graph.py.
+## How the Workflow Works
 
-START
-Validate question and role
-Input valid?
-Final response
-Retrieve document chunks
-Classify request with Groq
-Request type
-Check retrieved context
-Context available?
-Generate answer from context
-Check approval status
-Approved?
-Mock VPN access tool
-END
-No
-Yes
-information
-Yes
-No
-unsupported
-account_access
-Yes
-No
-Route summary
-Invalid input: validate → final → end.
-Information request: validate → retrieve → classify → grounding → generate → final → end.
-Unsupported request: validate → retrieve → classify → final → end.
-Access request approved: validate → retrieve → classify → approval → mock tool → final → end.
-Access request pending or rejected: validate → retrieve → classify → approval → final → end.
-RAG Pipeline Flowchart
-Markdown files in data/
-TextLoader
-RecursiveCharacterTextSplitter
-Hugging Face embeddings
-FAISS vector store
-Retriever: top 4 chunks
-Context and source filenames
-LangGraph workflow
-Current settings in app/rag.py:
+1. **Validate** — Rejects an empty question or an unsupported role (`employee`, `manager`, `it_admin`, or `hr`).
+2. **Retrieve** — Loads `.md` documents from `data/`, splits them into chunks, and retrieves the top four matches using FAISS.
+3. **Classify** — Uses the configured Groq chat model to classify the request.
+4. **Information path** — Checks whether retrieved context exists, then generates an answer from that context.
+5. **Account-access path** — Checks `approval_status`. The tool node runs only when the status is `approved`.
+6. **Unsupported path** — Returns the app's fallback response.
+7. **Final** — Returns the answer and any available sources or mock tool result.
 
-Embedding model: sentence-transformers/all-MiniLM-L6-v2
-Chunk size: 800
-Chunk overlap: 100
-Number of retrieved chunks: 4 (k=4)
-FAISS index: built in memory when build_retriever() runs.
-File Responsibilities
-File	Purpose
-app/main.py	Command-line entry point
-app/Streamlit_app.py	Streamlit user interface
-app/graph.py	Registers graph nodes and conditional routes
-app/nodes.py	Validation, retrieval, classification, grounding, generation, approval, mock tool, final response
-app/rag.py	Loads Markdown, splits text, embeds chunks, builds FAISS retriever
-app/state.py	Defines shared LangGraph state with TypedDict
-data/onboarding_guide.md	Laptop setup, account activation, first-day steps and VPN guidance
-data/product_faq.md	Onboarding portal and product documentation guidance
-data/security_policy.md	Secrets, least privilege, VPN requests and security incidents
-data/support_escalation_guide.md	Support requests, escalations and security incident handling
-tests/	Project test directory
-State Fields
-The state defined in app/state.py contains:
+### RAG Configuration
 
-Field	Purpose
-question	User question
-role	Role: employee, manager, it_admin, or hr
-retrieved_context	Retrieved text chunks
-citations	Source filenames
-query_type	Request label such as information, account_access, unsupported, or invalid
-answer	Answer or fallback message
-approval_status	pending, approved, or rejected
-tool_result	Mock tool result
-Setup
-1. Open a terminal at the project root
-The terminal directory should contain app/, data/, tests/, and .env.
+The current settings in `app/rag.py` are:
 
-2. Create and activate a virtual environment (recommended)
-Windows PowerShell:
+- **Embedding model:** `sentence-transformers/all-MiniLM-L6-v2`
+- **Chunk size:** `800`
+- **Chunk overlap:** `100`
+- **Retriever results:** `k=4`
+- **Vector index:** built in memory when the retriever is initialized
 
+## Getting Started
+
+### Prerequisites
+
+- Python installed
+- A Groq API key
+- Internet connection for Groq requests and the initial embedding-model download
+
+### 1. Clone the repository
+
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd AI_Onboarding_Assistant
+```
+
+Replace `YOUR_GITHUB_REPOSITORY_URL` with your repository URL. If you already downloaded the project, open a terminal in the project root instead.
+
+### 2. Create a virtual environment (recommended)
+
+**Windows PowerShell:**
+
+```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-3. Install dependencies
-If a requirements.txt exists in your project, run:
+```
 
+**macOS/Linux:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+If your repository contains `requirements.txt`:
+
+```bash
 pip install -r requirements.txt
-Otherwise, install the packages used by this project:
+```
 
+If it does not, install the packages used by the current implementation:
+
+```bash
 pip install streamlit langgraph langchain-core langchain-community langchain-text-splitters langchain-groq langchain-huggingface sentence-transformers faiss-cpu python-dotenv
-4. Configure Groq
-Add your API key to .env at the project root:
+```
 
+### 4. Configure environment variables
+
+Create a `.env` file in the project root:
+
+```env
 GROQ_API_KEY=your_groq_api_key
-Do not commit .env or expose your key in code, screenshots, or chat. In app/nodes.py, use a model ID currently available to your Groq account. For example, if enabled for your account:
+```
 
-llm = ChatGroq(
-    model="openai/gpt-oss-120b",
-    temperature=0.4,
-)
-If Groq returns a model-not-found, authentication, or rate-limit error, check the current model list and account status in the Groq console.
+In `app/nodes.py`, confirm that the `ChatGroq` model ID is available to your Groq account. Model availability and rate limits can change. Never hard-code an API key in Python files or commit `.env` to GitHub.
 
-Run the Application
-Run these commands from the project root.
+### 5. Run the app
 
-Streamlit UI
+Run commands from the repository root.
+
+**Streamlit UI:**
+
+```bash
 python -m streamlit run app/Streamlit_app.py
-CLI
+```
+
+**CLI:**
+
+```bash
 python -m app.main
-Type exit to stop the CLI.
+```
 
-Example Questions
-Information questions
-How do I set up my company laptop?
-What steps should I complete on my first day?
-Who should I contact if my account activation fails?
-What information should I include in a support request?
-What details should a VPN access request include?
-What should I do if I suspect my credentials were exposed?
-What is the onboarding portal used for?
-Account-access questions
-I need VPN access.
-Please grant me access to a protected company resource.
-Create an account in the internal system.
-Expected behavior: the workflow checks approval. If approved, the mock tool returns a simulated result; if rejected or pending, the tool does not run.
+For the CLI, enter a question and role when prompted. Type `exit` to quit if supported by your current CLI loop.
 
-Unsupported-topic questions
-What is today's stock price?
-Give me personal financial advice.
-Tell me the latest external news.
-What is the weather today?
-The expected classification is unsupported, but classification is LLM-based and is not guaranteed.
+## Example Questions
 
-Limitations
-The selected role is validated, but role-specific permissions are not currently enforced by the classifier.
-Grounding checks whether context exists; it does not independently verify every answer claim against the retrieved text.
-Citations are source filenames, not page-level references.
-The FAISS index is rebuilt in memory when the retriever is initialized.
-The access tool is simulated and does not grant real access.
-Groq model availability, API credentials, and rate limits can affect requests.
-Security Notes
-Keep .env private and add it to .gitignore.
-Rotate an API key if it has been exposed.
-Never place passwords, tokens, API keys, or private keys in prompts or support tickets.
-Production access actions should use trusted approval, authorization checks, and audit logging.
-Test Checklist
-Streamlit starts from the project root.
-An information question returns an answer and source filenames when available.
-An access request checks approval.
-Approved requests run only the mock tool.
-Rejected and pending requests do not run the tool.
-Unsupported requests return the scope message.
-Empty questions and invalid roles are rejected.
-License
-No license file was visible in the supplied project structure. Add a LICENSE file if you plan to distribute this project.
+Questions based on the included knowledge documents:
 
-![alt text](image.png)
+- How do I set up my company laptop?
+- What should I do on my first day?
+- Who should I contact if my account activation fails?
+- What information should I include in a support request?
+- When should an issue be escalated to IT support?
+- What details should a VPN access request include?
+- What should I do if I suspect my credentials were exposed?
+- What is the onboarding portal used for?
+- I need VPN access.
+
+## Testing Checklist
+
+Use these scenarios to verify the workflow:
+
+| Scenario | Expected behavior |
+|---|---|
+| Information question supported by documents | Answer based on retrieved context and include sources where available |
+| Account access with `approved` status | Mock tool runs and returns a simulated result |
+| Account access with `rejected` status | Tool does not run |
+| Account access with `pending` status | Tool does not run |
+| Unsupported question | Configured fallback response |
+| Empty question | Validation error response |
+| Invalid role | Validation error response |
+
+LLM classification is not deterministic, so test results can vary by prompt, model, and retrieved context.
+
+## Security and Limitations
+
+- **Mock access only:** the VPN tool simulates an access request. It does not grant real VPN access or modify any external system.
+- **Role checks:** the current implementation validates role names but does not implement a complete role-based authorization system.
+- **Grounding:** the grounding node checks whether context is available; it does not independently prove that every generated claim is entailed by the retrieved text.
+- **Citations:** sources are document filenames, not page-level citations.
+- **Index persistence:** the FAISS index is built in memory and is not persisted by the current RAG code.
+- **Secrets:** never commit `.env` or expose API keys, passwords, tokens, or private keys.
+- **Production readiness:** real account-access workflows should use trusted authorization, audit logging, error handling, and secure integrations.
+
+## Contributing
+
+1. Create a feature branch.
+2. Make changes and test the workflow locally.
+3. Open a pull request describing the change and test results.
+
+## License
+
+No license file was included in the project structure shown. Add a `LICENSE` file before distributing the repository under an open-source license.
+
