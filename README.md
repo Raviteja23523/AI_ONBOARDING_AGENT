@@ -6,7 +6,6 @@
 A Retrieval-Augmented Generation (RAG) onboarding assistant built with **Python, LangGraph, LangChain, Groq, FAISS, Hugging Face Embeddings, and Streamlit**. It retrieves relevant information from approved onboarding documents and routes each request through a LangGraph workflow.
 
 <!-- Replace the placeholder below with your deployed Streamlit app URL. -->
-> **🚀 Live Demo:** [Open the AI Onboarding Assistant](YOUR_LIVE_APP_URL)
 
 ## Project Workflow
 
