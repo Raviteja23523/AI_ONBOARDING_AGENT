@@ -1,6 +1,8 @@
 
 
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/6702847c-ace9-4cb6-a383-dea67e80009d" />
+
+## Live working Link :  https://aiappagent-6qzcafqfxk2hrnrq5macna.streamlit.app/
 # AI Onboarding Assistant
 
 A Retrieval-Augmented Generation (RAG) onboarding assistant built with **Python, LangGraph, LangChain, Groq, FAISS, Hugging Face Embeddings, and Streamlit**. It retrieves relevant information from approved onboarding documents and routes each request through a LangGraph workflow.
