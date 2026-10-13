@@ -201,6 +201,10 @@ LLM classification is not deterministic, so test results can vary by prompt, mod
 - **Secrets:** never commit `.env` or expose API keys, passwords, tokens, or private keys.
 - **Production readiness:** real account-access workflows should use trusted authorization, audit logging, error handling, and secure integrations.
 
+
+## Test Screen short
+<img width="953" height="404" alt="Screenshot 2026-10-13 204130" src="https://github.com/user-attachments/assets/f245ad56-4106-44a3-8e38-c5f0c56ba0c3" />
+
 ## Contributing
 
 1. Create a feature branch.
